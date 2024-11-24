@@ -178,7 +178,3 @@ jobs:
         uses: MishaKav/jest-coverage-comment@main
         with:
           coverage-summary-path: ./composable-ui/coverage/coverage-summary.json
-
-      - name: Update Algolia
-        working-directory: ./scripts
-        run: pnpm algolia-setup
