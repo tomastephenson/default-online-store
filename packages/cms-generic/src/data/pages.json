@@ -12,9 +12,9 @@
         "containerMarginBottom": "12",
         "containerMarginTop": "6",
         "containerSize": null,
-        "content": "Create impactful, online storefronts with a foundational React and Next.js design system and UI library for modern composable commerce websites.",
+        "content": "New Zealand's best-value razor subscription service.",
         "ctaAlphaHref": "",
-        "ctaAlphaLabel": "Get Started",
+        "ctaAlphaLabel": "Buy now",
         "eyebrow": null,
         "id": "70b70528-7595-412a-be3d-45ff3ac99416",
         "imageDesktop": {
@@ -31,7 +31,7 @@
         "inverted": true,
         "isFullScreen": false,
         "isLazy": false,
-        "title": "Composable UI Open Source Storefront"
+        "title": "Razorbox"
       },
       {
         "__typename": "Grid",
