@@ -82,9 +82,6 @@ export const Header = () => {
             justifyContent="flex-end"
             gap={3}
           >
-            <Box display={{ base: 'none', md: 'flex' }}>
-              <LoginAction />
-            </Box>
             <Button
               variant="unstyled"
               aria-label={`${cart.quantity} items in your shopping cart`}
