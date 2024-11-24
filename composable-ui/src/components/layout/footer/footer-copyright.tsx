@@ -5,10 +5,6 @@ export interface CopyrightFooterProps {
   copyrightText?: string
 }
 
-export class AppComponent  {
-  currentyear: number = new Date().getFullYear();
-}
-
 export const CopyrightFooter = ({ copyrightText }: CopyrightFooterProps) => {
   return (
     <Stack
@@ -20,7 +16,7 @@ export const CopyrightFooter = ({ copyrightText }: CopyrightFooterProps) => {
     >
       <Box>
         <Text fontSize="sm" color="subtle">
-        © Copyright Composable UI {{ currentyear }}      
+        © Copyright Razorbox 2024    
         </Text>
       </Box>
 
