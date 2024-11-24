@@ -3,6 +3,8 @@ import { FaInstagramSquare, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 export interface CopyrightFooterProps {
   copyrightText?: string
+  copyrightText?: "© Copyright Razorbox 2024"
+
 }
 
 export const CopyrightFooter = ({ copyrightText }: CopyrightFooterProps) => {
