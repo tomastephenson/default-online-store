@@ -3,8 +3,10 @@ import { FaInstagramSquare, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 export interface CopyrightFooterProps {
   copyrightText?: string
-  copyrightText?: "© Copyright Razorbox 2024"
+}
 
+export class AppComponent  {
+  currentyear: number = new Date().getFullYear();
 }
 
 export const CopyrightFooter = ({ copyrightText }: CopyrightFooterProps) => {
@@ -18,7 +20,7 @@ export const CopyrightFooter = ({ copyrightText }: CopyrightFooterProps) => {
     >
       <Box>
         <Text fontSize="sm" color="subtle">
-          {copyrightText}
+        © Copyright Composable UI {{ currentyear }}      
         </Text>
       </Box>
 
