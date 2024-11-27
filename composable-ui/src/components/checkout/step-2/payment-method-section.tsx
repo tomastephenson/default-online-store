@@ -72,15 +72,13 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
       <Accordion allowToggle>
         {/* Only display the Stripe payment method item */}
         <AccordionItem key={PAYMENT_METHOD.STRIPE} borderTop={0}>
-          {({ isExpanded }) => (
-            <>
               <AccordionButton
                 fontSize="base"
                 px={0}
                 py="sm"
                 gap="xxs"
                 onClick={() => {
-                  handleSelectPaymentMethod(!isExpanded, PAYMENT_METHOD.STRIPE)
+                  handleSelectPaymentMethod(PAYMENT_METHOD.STRIPE)
                 }}
                 _hover={{ bg: 'none' }}
               >
