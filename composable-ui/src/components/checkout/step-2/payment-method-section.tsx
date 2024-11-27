@@ -16,6 +16,7 @@ import { SectionHeader } from '@composable/ui'
 import { PaymentElement } from '@stripe/react-stripe-js'
 import { useEffect, useState } from 'react'  // Import useState for managing isSelected
 import { BsCashCoin } from 'react-icons/bs'
+import { FormBillingAddress } from './form-billing-address'
 import { OfflinePayment } from './offline-payment'
 import { PAYMENT_METHOD } from '../constants'
 import { FiPlus } from 'react-icons/fi'
