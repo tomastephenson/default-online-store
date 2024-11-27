@@ -1,16 +1,26 @@
 import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
   Box,
+  Icon,
   Text,
   Stack,
   Code,
 } from '@chakra-ui/react'
 import { useIntl } from 'react-intl'
-import { PaymentElement } from '@stripe/react-stripe-js'
-import { useEffect } from 'react'
-import { memo } from 'react'
+import { IoCardOutline, IoClose } from 'react-icons/io5'
 import { useCheckout } from '../../../hooks'
 import { SectionHeader } from '@composable/ui'
 import { FormBillingAddress } from './form-billing-address'
+import { PaymentElement } from '@stripe/react-stripe-js'
+import { useEffect } from 'react'
+import { BsCashCoin } from 'react-icons/bs'
+import { OfflinePayment } from './offline-payment'
+import { PAYMENT_METHOD } from '../constants'
+import { FiPlus } from 'react-icons/fi'
+import { memo } from 'react'
 
 const SetYourStripeAccount = () => (
   <Stack bg={'info.200'} padding={4}>
@@ -30,35 +40,93 @@ interface PaymentMethodSectionProps {
 
 export const PaymentMethodSection = memo(function PaymentMethodSection({
   stripeError = false,
-}) {
+}: PaymentMethodSectionProps) {
   const intl = useIntl()
   const {
-    paymentHandler: { register, select },
+    paymentHandler: { register, select, list },
   } = useCheckout()
   const stripeAvailable =
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && !stripeError
 
-  useEffect(() => {
+useEffect(() => {
     register({
-      key: 'STRIPE',
+      key: PAYMENT_METHOD.CASH,
+      title: intl.formatMessage({
+        id: 'checkout.paymentSection.offlinePayment',
+      }),
+      icon: BsCashCoin,
+    })
+
+    register({
+      key: PAYMENT_METHOD.STRIPE,
       title: intl.formatMessage({
         id: 'checkout.paymentSection.stripe.paymentMethodTitle',
       }),
+      icon: IoCardOutline,
     })
-    // Default to Stripe payment method
-    select('STRIPE')
-  }, [intl, register, select])
+  }, [intl, register])
+
+  const handleSelectPaymentMethod = (isSelected: boolean, key: string) => {
+    if (isSelected) {
+      // Payment by cash if no stripe
+      select(!stripeAvailable ? PAYMENT_METHOD.CASH : key)
+    } else {
+      select()
+    }
+  }
 
   return (
     <Box>
-      {!stripeAvailable ? (
-        <SetYourStripeAccount />
-      ) : (
-        <>
-          <PaymentElement />
-          <BillingAddressSubsection />
-        </>
-      )}
+      <Accordion allowToggle>
+        {list.map((pmtMethod, index) => (
+          <AccordionItem
+            key={`${pmtMethod.key}`}
+            borderTop={0}
+            borderBottomWidth={
+              index < list.length - 1 ? '1px' : '0px !important'
+            }
+          >
+            {({ isExpanded }) => (
+              <>
+                <AccordionButton
+                  fontSize="base"
+                  px={0}
+                  py="sm"
+                  gap="xxs"
+                  onClick={() => {
+                    handleSelectPaymentMethod(!isExpanded, pmtMethod.key)
+                  }}
+                  _hover={{ bg: 'none' }}
+                >
+                  {pmtMethod.icon && <Icon as={pmtMethod.icon} />}
+                  <Box flex="1" textAlign="left">
+                    {pmtMethod.title}
+                  </Box>
+                  {isExpanded ? <Icon as={IoClose} /> : <Icon as={FiPlus} />}
+                </AccordionButton>
+                <AccordionPanel px={0} pb={0}>
+                  <Box bg="shading.100" p="sm">
+                    {isExpanded && (
+                      <>
+                        {pmtMethod.key === PAYMENT_METHOD.CASH && (
+                          <OfflinePayment />
+                        )}
+                        {pmtMethod.key === PAYMENT_METHOD.STRIPE &&
+                          (!stripeAvailable ? (
+                            <SetYourStripeAccount />
+                          ) : (
+                            <PaymentElement />
+                          ))}
+                        <BillingAddressSubsection />
+                      </>
+                    )}
+                  </Box>
+                </AccordionPanel>
+              </>
+            )}
+          </AccordionItem>
+        ))}
+      </Accordion>
     </Box>
   )
 })
