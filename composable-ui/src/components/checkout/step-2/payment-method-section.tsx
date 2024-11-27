@@ -24,6 +24,10 @@ const SetYourStripeAccount = () => (
   </Stack>
 )
 
+interface PaymentMethodSectionProps {
+  stripeError?: boolean
+}
+
 export const PaymentMethodSection = memo(function PaymentMethodSection({
   stripeError = false,
 }) {
