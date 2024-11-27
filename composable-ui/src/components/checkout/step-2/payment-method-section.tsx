@@ -50,14 +50,6 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
 
 useEffect(() => {
     register({
-      key: PAYMENT_METHOD.CASH,
-      title: intl.formatMessage({
-        id: 'checkout.paymentSection.offlinePayment',
-      }),
-      icon: BsCashCoin,
-    })
-
-    register({
       key: PAYMENT_METHOD.STRIPE,
       title: intl.formatMessage({
         id: 'checkout.paymentSection.stripe.paymentMethodTitle',
@@ -77,40 +69,6 @@ useEffect(() => {
 
   return (
     <Box>
-      <Accordion allowToggle>
-        {list.map((pmtMethod, index) => (
-          <AccordionItem
-            key={`${pmtMethod.key}`}
-            borderTop={0}
-            borderBottomWidth={
-              index < list.length - 1 ? '1px' : '0px !important'
-            }
-          >
-            {({ isExpanded }) => (
-              <>
-                <AccordionButton
-                  fontSize="base"
-                  px={0}
-                  py="sm"
-                  gap="xxs"
-                  onClick={() => {
-                    handleSelectPaymentMethod(!isExpanded, pmtMethod.key)
-                  }}
-                  _hover={{ bg: 'none' }}
-                >
-                  {pmtMethod.icon && <Icon as={pmtMethod.icon} />}
-                  <Box flex="1" textAlign="left">
-                    {pmtMethod.title}
-                  </Box>
-                  {isExpanded ? <Icon as={IoClose} /> : <Icon as={FiPlus} />}
-                </AccordionButton>
-                <AccordionPanel px={0} pb={0}>
-                  <Box bg="shading.100" p="sm">
-                    {isExpanded && (
-                      <>
-                        {pmtMethod.key === PAYMENT_METHOD.CASH && (
-                          <OfflinePayment />
-                        )}
                         {pmtMethod.key === PAYMENT_METHOD.STRIPE &&
                           (!stripeAvailable ? (
                             <SetYourStripeAccount />
@@ -119,17 +77,10 @@ useEffect(() => {
                           ))}
                         <BillingAddressSubsection />
                       </>
-                    )}
-                  </Box>
-                </AccordionPanel>
-              </>
-            )}
-          </AccordionItem>
-        ))}
-      </Accordion>
+                    
     </Box>
   )
-})
+
 
 const BillingAddressSubsection = () => {
   const intl = useIntl()
