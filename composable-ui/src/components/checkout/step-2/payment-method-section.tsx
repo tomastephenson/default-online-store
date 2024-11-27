@@ -37,7 +37,7 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
   stripeError = false,
 }: PaymentMethodSectionProps) {
   const intl = useIntl();
-  const { paymentHandler: { register }, list } = useCheckout();
+  const { paymentHandler: { register, list } = useCheckout();
   const stripeAvailable =
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && !stripeError;
 
