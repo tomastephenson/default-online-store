@@ -88,11 +88,10 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
                     id: 'checkout.paymentSection.stripe.paymentMethodTitle',
                   })}
                 </Box>
-                {<Icon as={IoClose} /> : <Icon as={FiPlus} />}
+              {isSelected ? <Icon as={IoClose} /> : <Icon as={FiPlus} />}
               </AccordionButton>
               <AccordionPanel px={0} pb={0}>
                 <Box bg="shading.100" p="sm">
-                  {(
                     <>
                       {stripeAvailable ? ( // Only show PaymentElement if stripe is available
                         <PaymentElement />
@@ -101,7 +100,6 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
                       )}
                       <BillingAddressSubsection />
                     </>
-                  )}
                 </Box>
               </AccordionPanel>
             </>
