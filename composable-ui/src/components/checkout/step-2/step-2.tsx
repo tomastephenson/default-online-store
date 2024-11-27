@@ -26,6 +26,7 @@ const Step2 = memo(function Step2({
   const { checkoutState, isLoading, validation, payment, paymentHandler } =
     useCheckout()
   const stripe = useStripe()
+}
 
     // Stripe
       if (
@@ -52,7 +53,7 @@ const Step2 = memo(function Step2({
       // Cash
       // call commerce provider
       onSubmit()
-    } catch (e: unknown) {
+      catch (e: unknown) {
       setPaymentIsLoading(false)
       toast({
         status: 'error',
