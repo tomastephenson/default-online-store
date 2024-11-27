@@ -48,13 +48,23 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
   const stripeAvailable =
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && !stripeError
 
+useEffect(() => {
+    register({
+      key: PAYMENT_METHOD.CASH,
+      title: intl.formatMessage({
+        id: 'checkout.paymentSection.offlinePayment',
+      }),
+      icon: BsCashCoin,
+    })
+
     register({
       key: PAYMENT_METHOD.STRIPE,
       title: intl.formatMessage({
         id: 'checkout.paymentSection.stripe.paymentMethodTitle',
       }),
       icon: IoCardOutline,
-    }), [intl, register]
+    })
+  }, [intl, register])
 
   const handleSelectPaymentMethod = (isSelected: boolean, key: string) => {
     if (isSelected) {
