@@ -26,9 +26,26 @@ const Step2 = memo(function Step2({
   const { checkoutState, isLoading, validation, payment, paymentHandler } =
     useCheckout()
   const stripe = useStripe()
-}
+  const elements = useElements()
+  const [paymentIsLoading, setPaymentIsLoading] = useState(false)
 
-    // Stripe
+  const reviewOrderEnabled = Boolean(paymentHandler.selected)
+
+  const handleSubmit = async () => {
+    if (!checkoutState.config.billingSameAsShipping) {
+      const validations = await Promise.all([
+        validation.run(CHECKOUT_FORM_KEY.BILLING),
+      ])
+
+      if (validations.some((isValid) => !isValid)) {
+        return
+      }
+    }
+
+    try {
+      setPaymentIsLoading(true)
+
+      // Stripe
       if (
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY &&
         paymentHandler.selected?.key === PAYMENT_METHOD.STRIPE
@@ -53,7 +70,7 @@ const Step2 = memo(function Step2({
       // Cash
       // call commerce provider
       onSubmit()
-      catch (e: unknown) {
+    } catch (e: unknown) {
       setPaymentIsLoading(false)
       toast({
         status: 'error',
