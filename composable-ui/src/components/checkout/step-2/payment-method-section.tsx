@@ -58,7 +58,7 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
     })
   }, [intl, register])
 
-  const handleSelectPaymentMethod = (isSelected: boolean, key: string) => {
+  const handleSelectPaymentMethod = (key: string) => {
     if (isSelected) {
       // Only allow selecting stripe
       select(stripeAvailable ? key : undefined) // Select stripe if available, otherwise do nothing
