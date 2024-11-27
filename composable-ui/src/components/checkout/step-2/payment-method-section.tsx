@@ -51,6 +51,8 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
   const [isSelected, setIsSelected] = useState(false)  // Manage isSelected state
 
   useEffect(() => {
+  // Set the initial isSelected state to true to expand the accordion
+  setIsSelected(true);
     // Register only the stripe payment method
     register({
       key: PAYMENT_METHOD.STRIPE,
