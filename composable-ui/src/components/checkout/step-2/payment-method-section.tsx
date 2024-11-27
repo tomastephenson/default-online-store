@@ -1,5 +1,6 @@
 import {
   Accordion,
+  AccordionButton,
   AccordionItem,
   AccordionPanel,
   Box,
@@ -9,12 +10,16 @@ import {
   Code,
 } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
-import { IoCardOutline } from 'react-icons/io5';
+import { IoCardOutline, IoClose } from 'react-icons/io5';
 import { useCheckout } from '../../../hooks';
 import { SectionHeader } from '@composable/ui';
 import { FormBillingAddress } from './form-billing-address';
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useEffect } from 'react';
+import { BsCashCoin } from 'react-icons/bs';
+import { OfflinePayment } from './offline-payment';
+import { PAYMENT_METHOD } from '../constants';
+import { FiPlus } from 'react-icons/fi';
 import { memo } from 'react';
 
 const SetYourStripeAccount = () => (
@@ -37,12 +42,21 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
   stripeError = false,
 }: PaymentMethodSectionProps) {
   const intl = useIntl();
-  const { paymentHandler: { register, list } = useCheckout();
+  const {
+    paymentHandler: { register, select, list },
+  } = useCheckout();
   const stripeAvailable =
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && !stripeError;
 
-  // Only register the Stripe payment method
   useEffect(() => {
+    register({
+      key: PAYMENT_METHOD.CASH,
+      title: intl.formatMessage({
+        id: 'checkout.paymentSection.offlinePayment',
+      }),
+      icon: BsCashCoin,
+    });
+
     register({
       key: PAYMENT_METHOD.STRIPE,
       title: intl.formatMessage({
@@ -52,28 +66,66 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
     });
   }, [intl, register]);
 
+  const handleSelectPaymentMethod = (isSelected: boolean, key: string) => {
+    if (isSelected) {
+      // Payment by cash if no stripe
+      select(!stripeAvailable ? PAYMENT_METHOD.CASH : key);
+    } else {
+      select();
+    }
+  };
+
   return (
     <Box>
-      <Accordion allowToggle defaultIndex={[0]}>
-        {list
-          .filter((pmtMethod) => pmtMethod.key === PAYMENT_METHOD.STRIPE) // Show Stripe only
-          .map((pmtMethod) => (
-            <AccordionItem
-              key={pmtMethod.key}
-              isDisabled={!stripeAvailable} // Disable if Stripe is unavailable
-            >
-              <AccordionPanel px={0} pb={0}>
-                <Box bg="shading.100" p="sm">
-                  {!stripeAvailable ? (
-                    <SetYourStripeAccount />
-                  ) : (
-                    <PaymentElement />
-                  )}
-                  <BillingAddressSubsection />
-                </Box>
-              </AccordionPanel>
-            </AccordionItem>
-          ))}
+      <Accordion allowToggle>
+        {list.map((pmtMethod, index) => (
+          <AccordionItem
+            key={`${pmtMethod.key}`}
+            borderTop={0}
+            borderBottomWidth={
+              index < list.length - 1 ? '1px' : '0px !important'
+            }
+          >
+            {({ isExpanded }) => (
+              <>
+                <AccordionButton
+                  fontSize="base"
+                  px={0}
+                  py="sm"
+                  gap="xxs"
+                  onClick={() => {
+                    handleSelectPaymentMethod(!isExpanded, pmtMethod.key);
+                  }}
+                  _hover={{ bg: 'none' }}
+                >
+                  {pmtMethod.icon && <Icon as={pmtMethod.icon} />}
+                  <Box flex="1" textAlign="left">
+                    {pmtMethod.title}
+                  </Box>
+                  {isExpanded ? <Icon as={IoClose} /> : <Icon as={FiPlus} />}
+                </AccordionButton>
+                <AccordionPanel px={0} pb={0}>
+                  <Box bg="shading.100" p="sm">
+                    {isExpanded && (
+                      <>
+                        {pmtMethod.key === PAYMENT_METHOD.CASH && (
+                          <OfflinePayment />
+                        )}
+                        {pmtMethod.key === PAYMENT_METHOD.STRIPE &&
+                          (!stripeAvailable ? (
+                            <SetYourStripeAccount />
+                          ) : (
+                            <PaymentElement />
+                          ))}
+                        <BillingAddressSubsection />
+                      </>
+                    )}
+                  </Box>
+                </AccordionPanel>
+              </>
+            )}
+          </AccordionItem>
+        ))}
       </Accordion>
     </Box>
   );
