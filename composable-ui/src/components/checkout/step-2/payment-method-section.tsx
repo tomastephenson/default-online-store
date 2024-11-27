@@ -90,11 +90,11 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
                     id: 'checkout.paymentSection.stripe.paymentMethodTitle',
                   })}
                 </Box>
-                {isExpanded ? <Icon as={IoClose} /> : <Icon as={FiPlus} />}
+                {<Icon as={IoClose} /> : <Icon as={FiPlus} />}
               </AccordionButton>
               <AccordionPanel px={0} pb={0}>
                 <Box bg="shading.100" p="sm">
-                  {isExpanded ?  && (
+                  {(
                     <>
                       {stripeAvailable ? ( // Only show PaymentElement if stripe is available
                         <PaymentElement />
@@ -115,5 +115,42 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
 })
 
 const BillingAddressSubsection = () => {
-  // ... rest of the BillingAddressSubsection code (unchanged)
+  const intl = useIntl()
+  const { checkoutState, setCheckoutState } = useCheckout()
+  const {
+    config: { billingSameAsShipping },
+  } = checkoutState
+
+  return (
+    <Box mt={8}>
+      <SectionHeader
+        title={intl.formatMessage({
+          id: 'checkout.payment.paymentMethodSection.billingAddressSubsection.title',
+        })}
+        requiredMarkText={
+          billingSameAsShipping
+            ? undefined
+            : intl.formatMessage({ id: 'section.required' })
+        }
+        textProps={{ fontSize: 'lg' }}
+        boxProps={{ mb: 'sm' }}
+      />
+
+      <FormBillingAddress
+        initialValues={checkoutState.billing_address}
+        onChange={({ data, isValid }) => {
+          if (!isValid) {
+            return
+          }
+
+          setCheckoutState((state) => {
+            return {
+              ...state,
+              billing_address: data,
+            }
+          })
+        }}
+      />
+    </Box>
+  )
 }
