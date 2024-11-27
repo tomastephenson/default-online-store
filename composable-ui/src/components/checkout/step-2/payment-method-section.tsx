@@ -94,7 +94,7 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
               </AccordionButton>
               <AccordionPanel px={0} pb={0}>
                 <Box bg="shading.100" p="sm">
-                  {isExpanded 1  && (
+                  {isExpanded ?  && (
                     <>
                       {stripeAvailable ? ( // Only show PaymentElement if stripe is available
                         <PaymentElement />
