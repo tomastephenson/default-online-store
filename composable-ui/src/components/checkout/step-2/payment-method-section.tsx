@@ -1,8 +1,4 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
   Box,
   Icon,
   Text,
@@ -48,12 +44,6 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
   const stripeAvailable =
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && !stripeError
 
-  const [isSelected, setIsSelected] = useState(false)  // Manage isSelected state
-
-  useEffect(() => {
-  // Set the initial isSelected state to true to expand the accordion
-  setIsSelected(true);
-    // Register only the stripe payment method
     register({
       key: PAYMENT_METHOD.STRIPE,
       title: intl.formatMessage({
@@ -63,38 +53,12 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
     })
   }, [intl, register])
 
-  const handleSelectPaymentMethod = (isSelected: boolean, key: string) => {
-    setIsSelected(true)  // Update isSelected state
-    if (isSelected) {
-      // Only allow selecting stripe
-      select(stripeAvailable ? key : undefined) // Select stripe if available, otherwise do nothing
-    } else {
-      select()
-    }
-  }
-
-  return (
-    <Box>
-      <Accordion allowToggle>
-        {/* Only display the Stripe payment method item */}
-        <AccordionItem key={PAYMENT_METHOD.STRIPE} borderTop={0}>
-          <AccordionButton
-            fontSize="base"
-            px={0}
-            py="sm"
-            gap="xxs"
-            onClick={() => handleSelectPaymentMethod(!isSelected, PAYMENT_METHOD.STRIPE)}  // Toggle selection
-            _hover={{ bg: 'none' }}
-          >
-            <Icon as={IoCardOutline} />
+    <Box key={PAYMENT_METHOD.STRIPE} borderTop={0}>
             <Box flex="1" textAlign="left">
               {intl.formatMessage({
                 id: 'checkout.paymentSection.stripe.paymentMethodTitle',
               })}
             </Box>
-            {isSelected ? <Icon as={IoClose} /> : <Icon as={FiPlus} />}
-          </AccordionButton>
-          <AccordionPanel px={0} pb={0}>
             <Box bg="shading.100" p="sm">
               <>
                 {stripeAvailable ? ( // Only show PaymentElement if stripe is available
@@ -105,9 +69,6 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
                 <BillingAddressSubsection />
               </>
             </Box>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
     </Box>
   )
 })
