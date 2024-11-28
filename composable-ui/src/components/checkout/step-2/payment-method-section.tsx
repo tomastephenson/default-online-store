@@ -6,22 +6,44 @@ import {
   Code,
 } from '@chakra-ui/react'
 import { useIntl } from 'react-intl'
-import { IoCardOutline, IoClose } from 'react-icons/io5'
+import { IoCardOutline } from 'react-icons/io5'
 import { useCheckout } from '../../../hooks'
 import { SectionHeader } from '@composable/ui'
 import { PaymentElement } from '@stripe/react-stripe-js'
-import { useEffect, useState } from 'react'  // Import useState for managing isSelected
+import { useEffect } from 'react'
 import { BsCashCoin } from 'react-icons/bs'
 import { FormBillingAddress } from './form-billing-address'
 import { OfflinePayment } from './offline-payment'
 import { PAYMENT_METHOD } from '../constants'
-import { FiPlus } from 'react-icons/fi'
 import { memo } from 'react'
 
+const SetYourStripeAccount = () => (
+  <Stack bg={'info.200'} padding={4}>
+    <Text textStyle={'Desktop/Body-L'}>
+      To use Stripe, add your own Stripe keys to `.env`
+    </Text>
+    <Code>
+      <Text>STRIPE_SECRET_KEY=sk_test_...</Text>
+      <Text>NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...</Text>
+    </Code>
+  </Stack>
+)
+
+interface PaymentMethodSectionProps {
+  stripeError?: boolean
+}
+
+export const PaymentMethodSection = memo(function PaymentMethodSection({
+  stripeError = false,
+}: PaymentMethodSectionProps) {
+  const intl = useIntl()
+  const {
+    paymentHandler: { register, select },
+  } = useCheckout()
+  const stripeAvailable =
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && !stripeError
+
   useEffect(() => {
-  // Set the initial isSelected state to true to expand the accordion
-  setIsSelected(true);
-    // Register only the stripe payment method
     register({
       key: PAYMENT_METHOD.STRIPE,
       title: intl.formatMessage({
@@ -31,34 +53,24 @@ import { memo } from 'react'
     })
   }, [intl, register])
 
-  const handleSelectPaymentMethod = (isSelected: boolean, key: string) => {
-    setIsSelected(true)  // Update isSelected state
-    if (isSelected) {
-      // Only allow selecting stripe
-      select(stripeAvailable ? key : undefined) // Select stripe if available, otherwise do nothing
-    } else {
-      select()
-    }
-  }
-
-  return (    <Box key={PAYMENT_METHOD.STRIPE} borderTop={0}>
-            <Box flex="1" textAlign="left">
-              {intl.formatMessage({
-                id: 'checkout.paymentSection.stripe.paymentMethodTitle',
-              })}
-            </Box>
-            <Box bg="shading.100" p="sm">
-              <>
-                {stripeAvailable ? ( // Only show PaymentElement if stripe is available
-                  <PaymentElement />
-                ) : (
-                  <SetYourStripeAccount /> // Display message if stripe is not available
-                )}
-                <BillingAddressSubsection />
-              </>
-            </Box>
+  return (
+    <Box>
+      <SectionHeader>
+        {intl.formatMessage({
+          id: 'checkout.paymentSection.creditCard.paymentMethodTitle',
+        })}
+      </SectionHeader>
+      <Box bg="shading.100" p="sm">
+        {stripeAvailable ? (
+          <PaymentElement />
+        ) : (
+          <SetYourStripeAccount />
+        )}
+        <BillingAddressSubsection />
+      </Box>
     </Box>
   )
+})
 
 const BillingAddressSubsection = () => {
   const intl = useIntl()
@@ -67,6 +79,7 @@ const BillingAddressSubsection = () => {
     config: { billingSameAsShipping },
   } = checkoutState
 
+  return (
     <Box mt={8}>
       <SectionHeader
         title={intl.formatMessage({
@@ -97,4 +110,5 @@ const BillingAddressSubsection = () => {
         }}
       />
     </Box>
+  )
 }
