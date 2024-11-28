@@ -22,7 +22,6 @@ export const Step1 = ({ onSubmit }: Step1Props) => {
     const validations = await Promise.all([
       validation.run(CHECKOUT_FORM_KEY.GUEST),
       validation.run(CHECKOUT_FORM_KEY.SHIPPING),
-      validation.run(CHECKOUT_FORM_KEY.GDPR),
     ])
 
     if (validations.some((isValid) => !isValid)) {
@@ -61,8 +60,6 @@ export const Step1 = ({ onSubmit }: Step1Props) => {
 
             setCheckoutState((state) => {
               return {
-                ...state,
-                config: { ...state.config, gdpr: data.gdpr_consent },
                 ...state,
                 customer: data,
               }
