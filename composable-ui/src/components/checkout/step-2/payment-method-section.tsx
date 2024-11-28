@@ -55,11 +55,7 @@ export const PaymentMethodSection = memo(function PaymentMethodSection({
 
   return (
     <Box>
-      <SectionHeader>
-        {intl.formatMessage({
-          id: 'checkout.paymentSection.creditCard.paymentMethodTitle',
-        })}
-      </SectionHeader>
+      <SectionHeader>Credit Card</SectionHeader>
       <Box bg="shading.100" p="sm">
         {stripeAvailable ? (
           <PaymentElement />
