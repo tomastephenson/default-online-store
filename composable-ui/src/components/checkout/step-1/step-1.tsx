@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl'
 import { Box, Button, Stack, Text, Flex } from '@chakra-ui/react'
 import { useCheckout, useToast } from 'hooks'
-import { FormGdpr } from './form-gdpr'
 import { CHECKOUT_FORM_KEY } from '../constants'
 import { Section, SectionHeader } from '@composable/ui'
 import { FormShippingAddress } from './form-shipping-address'
@@ -63,6 +62,8 @@ export const Step1 = ({ onSubmit }: Step1Props) => {
             setCheckoutState((state) => {
               return {
                 ...state,
+                config: { ...state.config, gdpr: data.gdpr_consent },
+                ...state,
                 customer: data,
               }
             })
@@ -107,21 +108,6 @@ export const Step1 = ({ onSubmit }: Step1Props) => {
         <ShippingOptions />
       </Section>
 
-      <Box px={{ base: 4, md: 'none' }}>
-        <FormGdpr
-          initialValues={{
-            gdpr_consent: checkoutState.config.gdpr,
-          }}
-          onChange={({ data, isValid }) => {
-            setCheckoutState((state) => {
-              return {
-                ...state,
-                config: { ...state.config, gdpr: data.gdpr_consent },
-              }
-            })
-          }}
-        />
-      </Box>
 
       <Flex justifyContent="flex-end" px={{ base: 4, md: 'none' }}>
         <Button
