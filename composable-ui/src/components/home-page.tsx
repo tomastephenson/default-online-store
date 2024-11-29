@@ -55,8 +55,8 @@ export const HomePage = () => {
   return (
     <Box>
       <NextSeo
-        title="Composable UI Open Source Storefront"
-        description="Welcome to Composable UI! Create impactful, online storefronts with a foundational React and Next.js design system and UI library for modern composable commerce websites."
+        title="Razor Box"
+        description="Welcome to Razor Box - New Zealand's best-value razor subscription service."
       />
       <Container maxW="container.xl">
         {data?.items?.slice(0, visibleCount).map((item) => {
