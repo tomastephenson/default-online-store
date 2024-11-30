@@ -40,12 +40,12 @@
         "containerMarginBottom": "-12",
         "containerMarginTop": "",
         "containerSize": "",
-        "content": "Spin it up, extend it, make it your own. Composable UI Storefront is the fastest and easiest way for architects and developers to learn the best patterns for delivering composable commerce experiences.",
+        "content": "A lot of reasons:",
         "ctaAlphaHref": "",
         "ctaAlphaLabel": "",
         "eyebrow": "",
         "id": "f9601b9e-f3bf-443e-a761-293fde108071",
-        "title": "Composable UI Features"
+        "title": "Why use our razors?"
       },
       {
         "__typename": "Grid",
@@ -58,7 +58,7 @@
         "items": [
           {
             "__typename": "TextCard",
-            "title": "Composable Design System",
+            "title": "No plastic waste",
             "image": {
               "url": "/img/cms/icons/composable-design-system.png",
               "title": "harum",
