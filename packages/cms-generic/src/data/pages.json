@@ -31,70 +31,21 @@
         "inverted": true,
         "isFullScreen": false,
         "isLazy": false,
-        "title": "Razorbox"
+        "title": "Welcome to Razor Box"
       },
-      {
-        "__typename": "Grid",
-        "columns": 3,
-        "containerMarginBottom": 5,
-        "containerMarginTop": 5,
-        "containerSize": "full",
-        "gridGap": 5,
-        "id": "91109843-dc5f-44d0-bb33-f0c96102a4c8",
-        "items": [
-          {
-            "__typename": "TextCard",
-            "id": "6fa578ae-5780-4eb7-a3f1-43f0dd1871c6",
-            "title": "Github",
-            "image": {
-              "url": "/img/cms/icons/github.png",
-              "title": "Github",
-              "description": "Github icon"
-            },
-            "content": "Using React with Next.js provides a seamless solution for server-side rendering (SSR) that enhances the user experience and improves performance. ",
-            "theme": "highlight",
-            "textAlign": "center"
-          },
-          {
-            "__typename": "TextCard",
-            "id": "4a6b9484-b083-48dd-8c84-b984974cb648",
-            "title": "Technical Documentation",
-            "image": {
-              "url": "/img/cms/icons/technical-documentation.png",
-              "title": "Technical Documentation",
-              "description": "Technical Documentation icon"
-            },
-            "content": "Developers can spend more time building and less time searching for answers to common questions.",
-            "theme": "highlight",
-            "textAlign": "center"
-          },
-          {
-            "__typename": "TextCard",
-            "id": "7323f4da-97af-4b2e-8b94-6b4f15650035",
-            "title": "Figma Design Kit",
-            "image": {
-              "url": "/img/cms/icons/figma-design-kit.png",
-              "title": "Figma Design Kit",
-              "description": "Figma Design Kit icon"
-            },
-            "content": "Our Figma design kit provides a comprehensive set of UI components, layouts, and icons that enable designers to create stunning, cohesive designs quickly and easily.",
-            "theme": "highlight",
-            "textAlign": "center"
-          }
-        ]
-      },
+      
       {
         "__typename": "BannerTextOnly",
         "centered": true,
         "containerMarginBottom": "-12",
         "containerMarginTop": "",
         "containerSize": "",
-        "content": "Spin it up, extend it, make it your own. Composable UI Storefront is the fastest and easiest way for architects and developers to learn the best patterns for delivering composable commerce experiences.",
+        "content": "A lot of reasons:",
         "ctaAlphaHref": "",
         "ctaAlphaLabel": "",
         "eyebrow": "",
         "id": "f9601b9e-f3bf-443e-a761-293fde108071",
-        "title": "Composable UI Features"
+        "title": "Why use our razors?"
       },
       {
         "__typename": "Grid",
@@ -107,7 +58,7 @@
         "items": [
           {
             "__typename": "TextCard",
-            "title": "Composable Design System",
+            "title": "No plastic waste",
             "image": {
               "url": "/img/cms/icons/composable-design-system.png",
               "title": "harum",
@@ -188,7 +139,7 @@
         "containerMarginBottom": "",
         "containerMarginTop": "",
         "containerSize": "",
-        "content": "This section contains content from the product catalog. Read the docs for how to replace it.",
+        "content": "Set and forget - subscribe now!",
         "ctaAlphaHref": "",
         "ctaAlphaLabel": "",
         "eyebrow": "",

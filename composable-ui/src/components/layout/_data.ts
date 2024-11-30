@@ -1,6 +1,6 @@
 export const cmsNavLinks = [
   {
-    name: 'Accessories',
+    name: 'Subscriptions',
     slug: 'accessories',
   },
   {
@@ -27,11 +27,6 @@ export const cmsFooterLinks = {
         },
         {
           label: 'Store Finder',
-          href: '/',
-          variant: 'light',
-        },
-        {
-          label: 'Careers',
           href: '/',
           variant: 'light',
         },

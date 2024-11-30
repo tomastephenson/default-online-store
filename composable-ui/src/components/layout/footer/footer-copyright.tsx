@@ -16,7 +16,7 @@ export const CopyrightFooter = ({ copyrightText }: CopyrightFooterProps) => {
     >
       <Box>
         <Text fontSize="sm" color="subtle">
-          {copyrightText}
+        © Copyright Razorbox 2024    
         </Text>
       </Box>
 

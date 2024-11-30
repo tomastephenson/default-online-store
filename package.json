@@ -24,6 +24,9 @@
     "prettier": "^2.8.3",
     "turbo": "^1.7.0"
   },
+  "dependencies": {
+    "mongodb": "^5.0.0"
+  },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=18.14"
