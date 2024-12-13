@@ -18,13 +18,13 @@
         "eyebrow": null,
         "id": "70b70528-7595-412a-be3d-45ff3ac99416",
         "imageDesktop": {
-          "url": "/img/cms/home/composable-ui-banner.png",
+          "url": "/img/cms/home/homepage-banner.png",
           "title": "",
           "description": "",
           "minHeight": "800px"
         },
         "imageMobile": {
-          "url": "/img/cms/home/composable-ui-banner-mobile.png",
+          "url": "/img/cms/home/homepage-banner-mobile.png",
           "title": "provident",
           "description": "minus"
         },
